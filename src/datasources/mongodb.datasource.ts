@@ -4,7 +4,7 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'mongodb',
   connector: 'mongodb',
-  url: 'mongodb+srv://ecommerce_user:7rqA3VzFZ8CFlk98@clusterdb.3omn2.mongodb.net/ecommerce_db?retryWrites=true&w=majority',
+  url: '',
   host: 'localhost',
   port: 27017,
   user: '',
@@ -12,6 +12,7 @@ const config = {
   database: 'ecommerce_db',
   useNewUrlParser: true
 };
+
 
 // Observe application's life cycle to disconnect the datasource when
 // application is stopped. This allows the application to be shut down

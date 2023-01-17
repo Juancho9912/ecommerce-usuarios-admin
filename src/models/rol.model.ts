@@ -18,11 +18,7 @@ export class Rol extends Entity {
   })
   nombre: string;
 
-  @property({
-    type: 'string',
-  })
-  id_rol?: string;
-
+  
   @hasMany(() => Usuario, {keyTo: 'id_rol'})
   usuarios: Usuario[];
 
