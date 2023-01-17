@@ -22,6 +22,7 @@ import {Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
 import {AdministradorClavesService} from '../services';
 import { Credenciales } from '../models/credenciales.model';
+import { CambioClave } from '../models/cambio-clave.model';
 
 export class UsuarioController {
   constructor(
@@ -194,6 +195,55 @@ export class UsuarioController {
     }
     return usuario;
   }
+
+  @post('/cambiar-clave')
+  @response(200, {
+    description: 'Cambio de clave de usuarios',
+    content: {'application/json': {schema: getModelSchemaRef(CambioClave)}},
+  })
+  async cambiarClave(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(CambioClave, {
+            title: 'Cambio de clave del usuario',
+          }),
+        },
+      },
+    })
+    credencialesClave: CambioClave,
+  ): Promise<Boolean> {
+    let respuesta =await  this.servicioClaves.CambiarClave(credencialesClave);
+    if(respuesta){
+      //Invocar servicio de notificaciones para enviar correo al usuario
+    }
+    return respuesta;
+  }
+
+
+  @post('/recuperar-clave')
+  @response(200, {
+    description: 'recuperar clave de usuarios',
+    content: {'application/json': {schema: {}}},
+  })
+  async recuperarClave(
+    @requestBody({
+      content: {
+        'application/json': {
+        },
+      },
+    })
+    correo: string,
+  ): Promise<Usuario | null> {
+    let usuario =await  this.servicioClaves.RecuperarClave(correo);
+    if(usuario){
+      //Invocar servicio de notificaciones para enviar correo al usuario
+    }
+    return usuario;
+  }
+
+
+
 }
 
 
